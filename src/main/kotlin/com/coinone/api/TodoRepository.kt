@@ -1,5 +1,5 @@
 package com.coinone.api
 
-import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.repository.CrudRepository
 
-interface TodoRepository : JpaRepository<Todo, Long>
+interface TodoRepository : CrudRepository<Todo, Long>

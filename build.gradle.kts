@@ -27,8 +27,14 @@ dependencies {
 	implementation("io.springfox:springfox-swagger2:2.9.2")
 	implementation( "io.springfox:springfox-swagger-ui:2.9.2")
 	runtimeOnly("mysql:mysql-connector-java")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-test"){
+		exclude(module = "junit")
+	}
+	testImplementation("org.junit.jupiter:junit-jupiter-api")
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+	testImplementation("com.ninja-squad:springmockk:1.1.2")
 	testImplementation("io.projectreactor:reactor-test")
+	testCompile("com.nhaarman:mockito-kotlin:1.5.0")
 }
 
 tasks.withType<KotlinCompile> {
@@ -36,4 +42,8 @@ tasks.withType<KotlinCompile> {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
 		jvmTarget = "1.8"
 	}
+}
+
+tasks.withType<Test> {
+	useJUnitPlatform()
 }

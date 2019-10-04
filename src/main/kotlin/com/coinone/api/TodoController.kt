@@ -8,7 +8,7 @@ import java.util.*
 @RequestMapping("/todo")
 class TodoController(val todoRepository: TodoRepository) {
     @GetMapping
-    fun getTodos(): MutableList<Todo> = todoRepository.findAll()
+    fun getTodos(): MutableIterable<Todo> = todoRepository.findAll()
 
     @RequestMapping(path = ["/{id}"], method = [RequestMethod.GET])
     fun getTodo(@PathVariable("id") todoId: Long):Optional<Todo>? {
@@ -24,7 +24,7 @@ class TodoController(val todoRepository: TodoRepository) {
     @RequestMapping(path = ["/{id}"], method = [RequestMethod.PUT])
     @ResponseStatus(HttpStatus.OK)
     fun updateTodo(@RequestBody todo: Todo, @PathVariable("id") todoId: Long) {
-        var target: Todo = todoRepository.findById(todoId).get()
+        val target: Todo = todoRepository.findById(todoId).get()
         target.title = todo.title
         target.description = todo.description
         target.finished = todo.finished
